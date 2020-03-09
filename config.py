@@ -136,7 +136,7 @@ data_arg.add_argument(
 data_arg.add_argument(
     '--stanford3d_path',
     type=str,
-    default='/home/chrischoy/datasets/Stanford3D',
+    default='/DS/Stanford3D/aligned_processed',
     help='Stanford precropped dataset root dir')
 
 # Training / test parameters

@@ -10,7 +10,9 @@ from lib.pc_utils import save_point_cloud
 import MinkowskiEngine as ME
 
 STANFORD_3D_IN_PATH = '/cvgl/group/Stanford3dDataset_v1.2/'
+STANFORD_3D_IN_PATH = '/DS/Stanford3D/Stanford3dDataset_v1.2_Aligned_Version/'
 STANFORD_3D_OUT_PATH = '/home/chrischoy/datasets/Stanford3D'
+STANFORD_3D_OUT_PATH = '/DS/Stanford3D/aligned_processed'
 
 STANFORD_3D_TO_SEGCLOUD_LABEL = {
     4: 0,
@@ -45,6 +47,12 @@ class Stanford3DDatasetConverter:
     with open(txtfile) as f:
       pointcloud = [l.split() for l in f]
     # Load point cloud to named numpy array.
+    invalid_ids = [i for i in range(len(pointcloud)) if len(pointcloud[i]) != 6]
+    if len(invalid_ids)>0:
+      print('\n\n\n Found invalid points with len!=6')
+      print(invalid_ids)
+      print('\n\n\n')
+    pointcloud = [p for p in pointcloud if len(p) == 6]
     pointcloud = np.array(pointcloud).astype(np.float32)
     assert pointcloud.shape[1] == 6
     xyz = pointcloud[:, :3].astype(np.float32)

@@ -18,3 +18,5 @@ callgrind.out*
 
 # Misc
 .DS_Store
+.ropeproject
+*.pth
